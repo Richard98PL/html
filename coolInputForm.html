@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Split name into first and last</title>
+</head>
+<body>
+    <form>
+        <label for="name">Name:</label>
+        <input style="text-transform: capitalize;" type="text" id="name" onkeyup="splitName()" required>
+
+        <input type="hidden" id="firstName" name="firstName">
+        <input type="hidden" id="lastName" name="lastName">
+    </form>
+
+    <script>
+        function splitName() {
+            console.log('im here onchange');
+            // Get the name input value
+            const nameInput = document.getElementById("name");
+            nameInput.value = nameInput.value.replace(/[^a-zA-Z0-9 ]/g, '');
+
+            const name = nameInput.value.trim(); // Trim any leading/trailing spaces
+            
+            // Split the name by space
+            const nameArray = name.split(/\s+(?=\S)/); // Split by one or more spaces
+            console.log(nameArray);
+
+            // Set the first name and last name inputs
+            const firstNameInput = document.getElementById("firstName");
+            firstNameInput.value = nameArray.slice(0, -1).join(" ");
+
+            const lastNameInput = document.getElementById("lastName");
+            lastNameInput.value = nameArray[nameArray.length - 1];
+
+            console.log('lastName -> ' + lastNameInput.value);
+            console.log('firstName -> ' + firstNameInput.value);
+        }
+    </script>
+</body>
+</html>
